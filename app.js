@@ -24,7 +24,12 @@ login({email: config.fbEmail, password: config.fbPass}, function callback (err, 
 
 			// Tells chat who out of nerdboys.js is live
 			if (message.body == "!stream") { 
-				commands.stream(api);
+				commands.streams(api);
+			}
+
+			// Maps NerdBoy Twitch username to real name if available.
+			if (message.body == "!nerds") { 
+				commands.nerds(api);
 			}
 		}
 	});
