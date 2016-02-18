@@ -21,7 +21,7 @@ exports.init = function (api) {
 		async.eachSeries(nerdboys.channels, function iteratee(nerd, callback) {
 			var req = http.request({
 				host: 'api.twitch.tv',
-				path: '/kraken/streams/'+nerd.name
+				path: '/kraken/streams/'+nerd.name.toLowerCase()
 			}, function (res) {
 				var body = '';
 				res.on('data', function (data) {

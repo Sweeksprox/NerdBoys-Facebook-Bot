@@ -18,17 +18,22 @@ commands.spook = function (api) {
 
 commands.stream = function (api) {
 	var nerds = nerdboys.channels;
-	var msg = "NerdBoy streaming status: \n\n";
-	console.log(nerds.length)
+	var msg = "These NerdBoys are live right now: \n\n";
+	var noStreams = true;
+
 	for (var i = 0; i < nerds.length; i++) {
 		if (nerds[i].live) {
-			msg += "ONLINE : " + nerds[i].name + "\n";
-		} else {
-			msg += "OFFLINE: " + nerds[i].name + "\n";
+			noStreams = true;
+			msg += "twitch.tv/" + nerds[i].name + "\n"; // live
 		}
 	}
 
-	api.sendMessage(msg, config.threadID);
+	if (noStreams) {
+		api.sendMessage("no NERDS online, NERD.", config.threadID);
+	} else {
+		api.sendMessage(msg, config.threadID);
+	}
+	
 }
 
 module.exports = commands;
