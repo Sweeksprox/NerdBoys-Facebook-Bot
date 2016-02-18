@@ -3,7 +3,7 @@
 var login = require("facebook-chat-api");
 var config = require("./config.js");
 var commands = require("./bot_commands.js");
-var cronJobs = require("./cronJobs.js")
+var cronJobs = require("./cron_jobs.js")
 
 login({email: config.fbEmail, password: config.fbPass}, function callback (err, api) {
 	if(err) return console.error(err);

@@ -1,4 +1,4 @@
-// cronJobs.js
+// cron_jobs.js
 
 var words = require("random-words");
 var cronJob = require('cron').CronJob;
