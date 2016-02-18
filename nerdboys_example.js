@@ -2,6 +2,10 @@
 
 var nerds = {}
 
-nerds.channels = ["twitch_account_1", "twitch_account_2", "twitch_account_3", "twitch_account_4"];
+nerds.channels = [  {name: "twitch_account_1", live: false},
+					{name: "twitch_account_2", live: false},
+					{name: "twitch_account_3", live: false},
+					{name: "twitch_account_4", live: false}
+				 ];
 
 module.exports = nerds;

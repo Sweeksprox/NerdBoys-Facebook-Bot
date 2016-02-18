@@ -3,9 +3,11 @@
 var login = require("facebook-chat-api");
 var config = require("./config.js");
 var commands = require("./bot_commands.js");
+var cronJobs = require("./cronJobs.js")
 
 login({email: config.fbEmail, password: config.fbPass}, function callback (err, api) {
 	if(err) return console.error(err);
+	cronJobs.init(api);
 
 	api.listen(function callback(err, message) {
 		if (message.threadID == config.threadID) {
@@ -18,11 +20,6 @@ login({email: config.fbEmail, password: config.fbPass}, function callback (err, 
 			// Send a cool skeleton to chat
 			if (message.body == "!spook") {
 				commands.spook(api);
-			}
-
-			// Renames the chat to [random word]Boys
-			if (message.body == "!title") {
-				commands.title(api);
 			}
 
 			// Tells chat who out of nerdboys.js is live
