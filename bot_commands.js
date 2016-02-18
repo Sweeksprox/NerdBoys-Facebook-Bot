@@ -9,7 +9,7 @@ var words = require("random-words");
 var commands = {};
 
 commands.help = function (api) {
-	var help = "Here is a list of commands you can use to control BotBoy:\n\n !title - Generates a new random title for boys chat. \n\n !spook - Makes a cool skeleton for everyone to enjoy."
+	var help = "Here is a list of commands you can use to control BotBoy:\n\n !title - Generates a new random title for boys chat. \n\n !spook - Makes a cool skeleton for everyone to enjoy. \n\n !stream - Lists which nerdBoys are live on Twitch and which are offline."
 	api.sendMessage(help, config.threadID);
 }
 
@@ -19,7 +19,7 @@ commands.spook = function (api) {
 }
 
 commands.title = function (api) {
-	api.setTitle(words + "Boys", config.threadID, function (err, obj) {
+	api.setTitle(words() + "Boys", config.threadID, function (err, obj) {
 		if (err) console.log(err);
 	});
 }
