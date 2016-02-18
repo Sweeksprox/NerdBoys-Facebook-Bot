@@ -2,9 +2,7 @@
 
 var login = require("facebook-chat-api");
 var config = require("./config.js");
-var words = require("random-words");
 var commands = require("./bot_commands.js");
-var http = require('https');
 
 login({email: config.fbEmail, password: config.fbPass}, function callback (err, api) {
 	if(err) return console.error(err);
@@ -24,7 +22,12 @@ login({email: config.fbEmail, password: config.fbPass}, function callback (err, 
 
 			// Renames the chat to [random word]Boys
 			if (message.body == "!title") {
-				commands.title(api, words());
+				commands.title(api);
+			}
+
+			// Tells chat who out of nerdboys.js is live
+			if (message.body == "!stream") { 
+				commands.stream(api);
 			}
 		}
 	});
