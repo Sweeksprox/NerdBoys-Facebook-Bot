@@ -1,0 +1,23 @@
+{
+  "name": "nerdboys-facebook-bot",
+  "version": "1.0.0",
+  "description": "A bot that lives in facebook chat for my friends",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ICSandy/NerdBoys-Facebook-Bot.git"
+  },
+  "author": "ICSandy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ICSandy/NerdBoys-Facebook-Bot/issues"
+  },
+  "homepage": "https://github.com/ICSandy/NerdBoys-Facebook-Bot#readme",
+  "dependencies": {
+    "facebook-chat-api": "^1.0.6",
+    "random-words": "0.0.1"
+  }
+}
