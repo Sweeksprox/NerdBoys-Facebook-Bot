@@ -23,7 +23,7 @@ login({email: config.fbEmail, password: config.fbPass}, function callback (err, 
 			}
 
 			// Tells chat who out of nerdboys.js is live
-			if (message.body == "!stream") { 
+			if (message.body == "!streams") { 
 				commands.streams(api);
 			}
 

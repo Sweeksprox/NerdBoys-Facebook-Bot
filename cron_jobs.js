@@ -7,18 +7,24 @@ var async = require("async");
 var nerdboys = require("./nerdboys.js");
 var http = require("https");
 
+
 exports.init = function (api) {
+
 	// Every day at 11am change the chat title
 	new cronJob('00 00 11 * * *', function() {
-		api.setTitle(words() + "Boys", config.threadID, function (err, obj) {
+		var word = words();
+		word = word.charAt(0).toUpperCase() + word.slice(1) + "Boys";
+		api.setTitle(word, config.threadID, function (err, obj) {
 			if (err) console.log(err);
 		});
 	}, null, true, config.timeZone);
 
+
 	// Every 5 minutes check if any nerdBoy is live on Twitch
 	new cronJob('0 */5 * * * *', function() {
-		var live = false;
+		var live;
 		async.eachSeries(nerdboys.channels, function iteratee(nerd, callback) {
+			live = false;
 			var req = http.request({
 				host: 'api.twitch.tv',
 				path: '/kraken/streams/'+nerd.name.toLowerCase()
