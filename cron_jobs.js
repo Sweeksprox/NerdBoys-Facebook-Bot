@@ -46,10 +46,10 @@ exports.init = function (api) {
 							api.sendMessage("Hey, boys! " + nerd.name.toUpperCase() + " has just gone live! This nerd is currently playing " + playing.toUpperCase() + ". Check out the stream here: twitch.tv/" + nerd.name.toLowerCase(), config.threadID);
 						}
 					}
-					callback();
 				});
 			});
 			req.end();
+			callback();
 		});
 	}, null, true, config.timeZone);
 }
