@@ -24,7 +24,7 @@ commands.streams = function (api) {
 	for (var i = 0; i < nerds.length; i++) {
 		if (nerds[i].live) {
 			noStreams = false;;
-			msg += "twitch.tv/" + nerds[i].name + " [playing " + nerds[i].game + "]\n";
+			msg += nerds[i].name.toUpperCase() + " [playing " + nerds[i].game + "]\n";
 		}
 	}
 

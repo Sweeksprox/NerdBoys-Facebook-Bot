@@ -43,7 +43,7 @@ exports.init = function (api) {
 					if (nerd.live != live) {
 						nerd.live = live;
 						if (live) {
-							api.sendMessage("Hey, boys! " + nerd.name.toUpperCase() + " has just gone live! This nerd is currently playing " + playing.toUpperCase() + ". Check out the stream here: twitch.tv/" + nerd.name.toLowerCase(), config.threadID);
+							api.sendMessage("Hey, boys! " + nerd.name.toUpperCase() + " has just gone live! This nerd is currently playing " + playing.toUpperCase(), config.threadID);
 						}
 					}
 				});
