@@ -47,6 +47,23 @@ commands.nerds = function (api) {
 	}
 
 	api.sendMessage(msg, config.threadID);
-
 }
+
+var vibeCount = 0;
+var lastThumb = false;
+var currentThumb = false;
+commands.goodVibes = function (api, message) {
+	if (message["attachments"].length > 0 && message["attachments"][0]["stickerID"] == "369239263222822") {
+		vibeCount++;
+		if (vibeCount >= 3) { 
+			vibeCount = 0;
+			api.sendMessage({sticker: 369239263222822}, config.threadID);
+		}
+	} else {
+		vibeCount = 0;
+	}
+}
+
+
+
 module.exports = commands;

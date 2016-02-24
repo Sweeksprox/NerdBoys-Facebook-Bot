@@ -12,6 +12,9 @@ login({email: config.fbEmail, password: config.fbPass}, function callback (err, 
 	api.listen(function callback(err, message) {
 		if (message.threadID == config.threadID) {
 
+			// participate in good vibes (send thumbs up after 3 consecutive thumbs up)
+			commands.goodVibes(api, message);
+
 			// List all commands bot is capable of doing
 			if (message.body == "!help") {
 				commands.help(api);
