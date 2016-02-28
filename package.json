@@ -20,6 +20,7 @@
     "async": "^1.5.2",
     "cron": "^1.1.0",
     "facebook-chat-api": "^1.0.6",
-    "random-words": "0.0.1"
+    "random-words": "0.0.1",
+    "request": "^2.69.0"
   }
 }

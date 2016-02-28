@@ -5,7 +5,8 @@ var cronJob = require('cron').CronJob;
 var config = require("./config.js");
 var async = require("async");
 var nerdboys = require("./nerdboys.js");
-var http = require("https");
+// var http = require("https");
+var request = require("request")
 
 
 exports.init = function (api) {
@@ -25,30 +26,29 @@ exports.init = function (api) {
 		var live;
 		async.eachSeries(nerdboys.channels, function iteratee(nerd, callback) {
 			live = false;
-			var req = http.request({
-				host: 'api.twitch.tv',
-				path: '/kraken/streams/'+nerd.name.toLowerCase()
-			}, function (res) {
-				var body = '';
-				res.on('data', function (data) {
-					body += data;
-				});
-				res.on('end', function () {
+			request('https://api.twitch.tv/kraken/streams/' + nerd.name.toLowerCase(), function (error, response, body) {
+				if (!error && response.statusCode == 200) {
 					var parsed = JSON.parse(body);
+
 					if (parsed["stream"] != null) {
 						live = true
 						var playing = parsed["stream"]["game"];
 						nerd.game = playing;
-					}
-					if (nerd.live != live) {
-						nerd.live = live;
-						if (live) {
-							api.sendMessage("Hey, boys! " + nerd.name.toUpperCase() + " has just gone live! This nerd is currently playing " + playing.toUpperCase(), config.threadID);
+
+						if (nerd.live != live) {
+							nerd.live = live;
+
+							if (live) { //could get rid of this
+								api.sendMessage("Hey, boys! " + nerd.name.toUpperCase() + " has just gone live! This nerd is currently playing " + playing.toUpperCase(), config.threadID);
+							}
 						}
+					} else {
+						nerd.live = live;
 					}
-				});
+
+				}
 			});
-			req.end();
+
 			callback();
 		});
 	}, null, true, config.timeZone);
