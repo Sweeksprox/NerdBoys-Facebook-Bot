@@ -1,6 +1,6 @@
 // nerd_files.js
 
-var nerds = require("./nerdboys.js").channels;
+var nerds = require("./config_files/nerdboys.js").channels;
 var fs = require("fs");
 
 exports.init = function () {
