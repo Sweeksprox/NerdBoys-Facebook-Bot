@@ -15,29 +15,7 @@ login({email: config.fbEmail, password: config.fbPass}, function callback (err, 
 
 	api.listen(function callback(err, message) {
 		if (message.threadID == config.threadID) {
-
-			// participate in good vibes (send thumbs up after 3 consecutive thumbs up)
-			commands.goodVibes(message);
-
-			// List all commands bot is capable of doing
-			if (message.body == "!help") {
-				commands.help();
-			}
-
-			// Send a cool skeleton to chat
-			if (message.body == "!spook") {
-				commands.spook();
-			}
-
-			// Tells chat who out of nerdboys.js is live
-			if (message.body == "!streams") {
-				commands.streams();
-			}
-
-			// Maps NerdBoy Twitch username to real name if available.
-			if (message.body == "!nerds") {
-				commands.nerds();
-			}
+			commands.parseMessage(message);
 		}
 	});
 });

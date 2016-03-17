@@ -5,19 +5,43 @@ var config = require("./config_files/config.js");
 var words = require("random-words");
 var chat = require("./chat.js");
 
-var commands = {};
 
-commands.help = function () {
+exports.parseMessage = function (message){
+	// participate in good vibes (send thumbs up after 3 consecutive thumbs up)
+	goodVibes(message);
+
+	// List all commands bot is capable of doing
+	if (message.body == "!help") {
+		help();
+	}
+
+	// Send a cool skeleton to chat
+	if (message.body == "!spook") {
+		spook();
+	}
+
+	// Tells chat who out of nerdboys.js is live
+	if (message.body == "!streams") {
+		streams();
+	}
+
+	// Maps NerdBoy Twitch username to real name if available.
+	if (message.body == "!nerds") {
+		nerds();
+	}
+}
+
+function help () {
 	var help = "Here is a list of commands you can use to control BotBoy: \n\n !spook - Makes a cool skeleton for everyone to enjoy. \n\n !streams - Lists which NerdBoys are live. \n\n !nerds - Maps a real life name to a NerdBoy Twitch username"
 	chat.send(help);
 }
 
-commands.spook = function () {
+function spook () {
 	var spook = "▒▒▒░░░░░░░░░░▄▐░░░░\n▒░░░░░░▄▄▄░░▄██▄░░░\n░░░░░░▐▀█▀▌░░░░▀█▄░\n░░░░░░▐█▄█▌░░░░░░▀█▄\n░░░░░░░▀▄▀░░░▄▄▄▄▄▀▀\n░░░░░▄▄▄██▀▀▀▀░░░░░\n░░░░█▀▄▄▄█░▀▀░░░░░░\n░░░░▌░▄▄▄▐▌▀▀▀░░░░░\n░▄░▐░░░▄▄░█░▀▀░░░░░\n░▀█▌░░░▄░▀█▀░▀░░░░░\n░░░░░░░░▄▄▐▌▄▄░░░░░\n░░░░░░░░▀███▀█░▄░░░\n░░░░░░░▐▌▀▄▀▄▀▐▄░░░\n░░░░░░░▐▀░░░░░░▐▌░░\n░░░░░░░█░░░░░░░░█░░\n░░░░░░▐▌░░░░░░░░░█░";
 	chat.send(spook);
 }
 
-commands.streams = function () {
+function streams () {
 	var nerds = nerdboys.channels;
 	var msg = "These NerdBoys are live right now: \n\n";
 	var noStreams = true;
@@ -37,7 +61,7 @@ commands.streams = function () {
 	
 }
 
-commands.nerds = function () {
+function nerds () {
 	var nerds = nerdboys.channels;
 	var msg = ""
 
@@ -53,7 +77,7 @@ commands.nerds = function () {
 var vibeCount = 0;
 var lastThumb = false;
 var currentThumb = false;
-commands.goodVibes = function (message) {
+function goodVibes (message) {
 	if (message["attachments"].length > 0 && message["attachments"][0]["stickerID"] == "369239263222822") {
 		vibeCount++;
 		if (vibeCount >= 3) { 
@@ -64,7 +88,3 @@ commands.goodVibes = function (message) {
 		vibeCount = 0;
 	}
 }
-
-
-
-module.exports = commands;

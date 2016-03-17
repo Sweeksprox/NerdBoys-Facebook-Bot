@@ -1,12 +1,21 @@
 // chat.js
 
 var config = require("./config_files/config.js");
-var api;
+var chat = {api: null}
 
-exports.init = function (facebookAPI) {
-	api = facebookAPI;
+exports.init = function (api) {
+	chat.api = api;
 }
 
 exports.send = function(message) {
-	api.sendMessage(message, config.threadID);
+	chat.api.sendMessage(message, config.threadID);
 }
+
+exports.getapi = function() {
+	return chat.api
+}
+
+exports.setapi = function(api) {
+	chat.api = api;
+}
+
