@@ -4,11 +4,12 @@ var nerdboys = require("./config_files/nerdboys.js");
 var config = require("./config_files/config.js");
 var words = require("random-words");
 var chat = require("./chat.js");
-
+var syllable = require('syllable');
 
 exports.parseMessage = function (message){
 	// participate in good vibes (send thumbs up after 3 consecutive thumbs up)
 	goodVibes(message);
+	checkHaiku(message);
 
 	// List all commands bot is capable of doing
 	if (message.body == "!help") {
@@ -78,7 +79,7 @@ var vibeCount = 0;
 var lastThumb = false;
 var currentThumb = false;
 function goodVibes (message) {
-	if (message["attachments"].length > 0 && message["attachments"][0]["stickerID"] == "369239263222822") {
+	if (message["attachments"].length > 0 && (message["attachments"][0]["stickerID"] == "369239263222822" || message["attachments"][0]["stickerID"] == "369239343222814" || message["attachments"][0]["stickerID"] == "369239383222810")) {
 		vibeCount++;
 		if (vibeCount >= 3) { 
 			vibeCount = 0;
@@ -86,5 +87,46 @@ function goodVibes (message) {
 		}
 	} else {
 		vibeCount = 0;
+	}
+}
+
+function checkHaiku (message) {
+	// var syllables = syllable(message.body);
+	var msg = "";
+	var haikuArr = message.body.split(" ");
+	var parsedHaiku = fiveSevenFive(haikuArr);
+	if (parsedHaiku != null) {
+		for (var i = 0; i < haikuArr.length; i++) {
+			msg += haikuArr[i] + " ";
+			if (i == parsedHaiku[0] || i == parsedHaiku[1] || i == parsedHaiku[2]) {
+				msg += "\n"
+			}
+		}
+		chat.send(msg);
+	}	
+}
+
+function fiveSevenFive(haiku) {
+	var sylArray = [0, 0, 0];
+	var haikuIndex = [0, 0, 0];
+
+	for (var i = 0; i < haiku.length; i++) {
+		if (sylArray[0] < 5) {
+			sylArray[0] += syllable(haiku[i]);
+			if (sylArray[0] == 5) haikuIndex[0] = i;
+		} else if (sylArray[1] < 7) {
+			sylArray[1] += syllable(haiku[i]);
+			if (sylArray[1] == 7) haikuIndex[1] = i;
+		} else if (sylArray[2] < 5) {
+			sylArray[2] += syllable(haiku[i]);
+			if (sylArray[2] == 5) haikuIndex[2] = i;
+		} else {
+			break;
+		}
+	}
+	if (sylArray[0] == 5 && sylArray[1] == 7 && sylArray[2] == 5) {
+		return haikuIndex;
+	} else {
+		return null;
 	}
 }
