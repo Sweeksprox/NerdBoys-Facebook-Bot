@@ -10,6 +10,7 @@ exports.parseMessage = function (message){
 	// participate in good vibes (send thumbs up after 3 consecutive thumbs up)
 	goodVibes(message);
 	checkHaiku(message);
+	// lmao(message);
 
 	// List all commands bot is capable of doing
 	if (message.body == "!help") {
@@ -110,6 +111,9 @@ function fiveSevenFive(haiku) {
 	var sylArray = [0, 0, 0];
 	var haikuIndex = [0, 0, 0];
 
+	//does it stop counting after line breaks?
+	//bednars HM HM HM HM tests made it go over 5,7,5 was this because line breaks
+
 	for (var i = 0; i < haiku.length; i++) {
 		if (sylArray[0] < 5) {
 			sylArray[0] += syllable(haiku[i]);
@@ -117,16 +121,24 @@ function fiveSevenFive(haiku) {
 		} else if (sylArray[1] < 7) {
 			sylArray[1] += syllable(haiku[i]);
 			if (sylArray[1] == 7) haikuIndex[1] = i;
-		} else if (sylArray[2] < 5) {
+		} else {
 			sylArray[2] += syllable(haiku[i]);
 			if (sylArray[2] == 5) haikuIndex[2] = i;
-		} else {
-			break;
 		}
 	}
+
+	console.log(sylArray)
+
 	if (sylArray[0] == 5 && sylArray[1] == 7 && sylArray[2] == 5) {
 		return haikuIndex;
 	} else {
 		return null;
+	}
+}
+
+function lmao (message) {
+	var regex = /a+y+/ig
+	if (message.body.match(regex)) {
+		chat.send("lmao")
 	}
 }
