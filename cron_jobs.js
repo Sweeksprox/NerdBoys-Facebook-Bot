@@ -37,10 +37,19 @@ exports.init = function () {
 	// Every day at 11am change the chat title
 	new cronJob('00 00 11 * * *', function() {
 		var word = words();
-		word = word.charAt(0).toUpperCase() + word.slice(1) + "Boys";
-		chat.getapi().setTitle(word, config.threadID, function (err, obj) {
+		var title = word.charAt(0).toUpperCase() + word.slice(1) + "Boys";
+		var msg = title.toUpperCase().split('').join(' ');
+		/*
+		var msgSplit = word.split();
+		var msg = "";
+		for (i = 0; i < msgSplit.length; i++) {
+			msg += msgSplit[i].toUpperCase() + " ";
+		}
+		*/
+		chat.getapi().setTitle(title, config.threadID, function (err, obj) {
 			if (err) console.log(err);
 		});
+		chat.send(msg);
 	}, null, true, config.timeZone);
 
 
