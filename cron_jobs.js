@@ -46,7 +46,7 @@ exports.init = function () {
 			msg += msgSplit[i].toUpperCase() + " ";
 		}
 		*/
-		chat.getapi().setTitle(word, config.threadID, function (err, obj) {
+		chat.getapi().setTitle(title, config.threadID, function (err, obj) {
 			if (err) console.log(err);
 		});
 		chat.send(msg);
