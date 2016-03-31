@@ -48,8 +48,8 @@ exports.init = function () {
 		*/
 		chat.getapi().setTitle(title, config.threadID, function (err, obj) {
 			if (err) console.log(err);
+			else chat.send(msg);
 		});
-		chat.send(msg);
 	}, null, true, config.timeZone);
 
 
