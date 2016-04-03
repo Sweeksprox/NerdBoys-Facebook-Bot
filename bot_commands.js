@@ -80,42 +80,46 @@ var vibeCount = 0;
 var thumbSize = 0;
 var thumbs = ["369239263222822", "369239343222814", "369239383222810"];
 function goodVibes (message) {
-	if (message["attachments"].length > 0) {
-		var size = thumbs.indexOf(message["attachments"][0]["stickerID"]);
-		if (size >= 0) {
-			vibeCount++;
-			thumbSize += size + 1;
-			if (vibeCount >= 3) { 
-				var thumb = "";
-				var trueThumb = true;
-				switch (thumbSize) {
-					case 3:
-					case 4:
-						thumb = "369239263222822";
-						break;
-					case 5:
-					case 6:
-					case 7:
-						thumb = "369239343222814";
-						break;
-					case 8:
-					case 9:
-						thumb = "369239383222810";
-						break;
-					default:
-						trueThumb = false;
-				}
-				vibeCount = 0;
-				thumbSize = 0;
-				if (trueThumb) {
-					chat.send({sticker: thumb});
-				}
+	var size;
+	try {
+		size = thumbs.indexOf(message["attachments"][0]["stickerID"]);
+	}
+	catch (err) {
+		size = -1;
+	}
+	if (size >= 0) {
+		vibeCount++;
+		thumbSize += size + 1;
+		if (vibeCount >= 3) { 
+			var thumb = "";
+			var trueThumb = true;
+			switch (thumbSize) {
+				case 3:
+				case 4:
+					thumb = "369239263222822";
+					break;
+				case 5:
+				case 6:
+				case 7:
+					thumb = "369239343222814";
+					break;
+				case 8:
+				case 9:
+					thumb = "369239383222810";
+					break;
+				default:
+					trueThumb = false;
 			}
-		}
-		else {
 			vibeCount = 0;
 			thumbSize = 0;
+			if (trueThumb) {
+				chat.send({sticker: thumb});
+			}
 		}
+	}
+	else {
+		vibeCount = 0;
+		thumbSize = 0;
 	}
 }
 
